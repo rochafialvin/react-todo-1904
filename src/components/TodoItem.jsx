@@ -1,11 +1,6 @@
 import React from "react";
 
 class TodoItem extends React.Component {
-  state = {
-    action: "Minum",
-    isComplete: false,
-  };
-
   deleteBtnHandler = () => {
     this.setState({ isComplete: false });
   };
@@ -15,14 +10,15 @@ class TodoItem extends React.Component {
   };
 
   render() {
+    // this.props.todo : { action: "Mandi", isComplete: false }
     return (
       <div className="d-flex w-50 pt-3 justify-content-between border-bottom mx-auto">
-        {this.state.isComplete ? (
+        {this.props.todo.isComplete ? (
           <p className="lead text-decoration-line-through">
-            {this.state.action}
+            {this.props.todo.action}
           </p>
         ) : (
-          <p className="lead">{this.state.action}</p>
+          <p className="lead"> {this.props.todo.action}</p>
         )}
         <div>
           <button
