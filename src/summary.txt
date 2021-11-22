@@ -1,0 +1,11 @@
+- React adalah sebuah library yang memungkinkan kita membangun website dengan pola component based (setiap halaman akan terdiri dari beberapa komponen)
+- Komponen bersifat resuable (dapat digunakan berulang di lebih dari satu tempat)
+- Komponen dapat dibuat dengan menggunakan class
+- Komponen yang dibuat dengan menggunakan class harus memiliki function render yang me-return satu buah element.
+- Kita dapat memiliki sebuah object special di setiap komponent, bernama state. Kenapa special ? karena memiliki function bawaan yang bernama setState, saat kita menggunakan setState untuk mengubah data, maka secara otomatis akan men-trigger function render untuk dijalankan ulang (re-render).
+- Selain state, ada juga properties yang berfungsi sebagai sumber data, jika state adalah object yang kita buat didalam sebuah komponen, maka properties (props) adalah sebuah object yang isinya datang dari luar, biasanya kiriman dari parent-nya.
+- Selain render, ada function bawaan bernama componentDidMount yang hanya akan dijalankan sekali setelah function render yang pertama kali selesai dijalankan.
+- this adalah sebuah keyword yang digunakan didalam class, yang nantinya akan berisi sebuah object yang dibuat oleh class itu sendiri.
+- Saat ada data yang ingin dikirim ke parent, maka buatlah function di parent lalu kirimkan ke child, dan dari dalam child itu jalankan functionnya dengan memasukkan data yang ingin dikirim ke dalam function tersebut, karena function tadi dibuat di parent komponen, maka parent akan bisa mengakses data milik child dari dalam functionnya.
+- componentDidMount biasa digunakan untuk mengambil data ke database.
+- tambahkan sendiri ya, aku udah ga kepikiran lagi kwkwkwk ....
