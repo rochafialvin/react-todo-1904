@@ -1,30 +1,22 @@
 import React from "react";
 
 class TodoItem extends React.Component {
-  // state adalah object special sebagai tempat penyimpanan data yang akan digunakan oleh komponen
   state = {
     action: "Minum",
-    isComplete: false, // true
+    isComplete: false,
   };
 
-  // membuat function dengan model arrow function agar keyword this tidak undefined
   deleteBtnHandler = () => {
-    // untuk merubah data di dalam state harus dengan menggunakan method setState
-    // REMEMBER !!! setiap kali setState dijalankan, maka function render akan dijalankan ulang
     this.setState({ isComplete: false });
   };
 
-  completeBtnHandler = (time) => {
+  completeBtnHandler = () => {
     this.setState({ isComplete: true });
-    alert(`Selamat anda sudah ${this.state.action}`);
-    console.log(time);
   };
 
   render() {
     return (
-      <div className="d-flex w-50 p-3 justify-content-around">
-        {/* ternary operation, sebuah syntax yang bekerja menyerupai if else */}
-        {/* jika isComplete bernilai true, akan menampilkan paragraf yang memiliki class text-decoration-line-through */}
+      <div className="d-flex w-50 py-2 justify-content-between border-bottom mx-auto">
         {this.state.isComplete ? (
           <p className="lead text-decoration-line-through">
             {this.state.action}
@@ -34,17 +26,13 @@ class TodoItem extends React.Component {
         )}
         <div>
           <button
-            // karena function deleteBtnHandler tidak menerima input (argument), maka bisa langsung ditaruh didalam kurung kurawal
             onClick={this.deleteBtnHandler}
-            className="btn btn-outline-danger me-5"
+            className="btn btn-outline-warning me-2"
           >
-            Delete
+            Cancel
           </button>
           <button
-            // karena function completeBtnHandler menerima input (argument), maka harus ditaruh didalam arrow funciton terlebih dahulu
-            onClick={() => {
-              this.completeBtnHandler("Sesuatu");
-            }}
+            onClick={this.completeBtnHandler}
             className="btn btn-outline-success"
           >
             Complete
