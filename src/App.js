@@ -22,10 +22,29 @@ class App extends React.Component {
     this.setState({ todos: [...this.state.todos, newTodo] });
   };
 
+  onDeleteTodo = (selectedId) => {
+    // selectedId : 72
+    // newArray = [ { id: 27, action: "Mandi", isComplete: false } ]
+    const filteredTodos = this.state.todos.filter((todo) => {
+      // todo : { id: 27, action: "Mandi", isComplete: false }
+      // return true
+      return todo.id !== selectedId;
+    });
+
+    this.setState({ todos: filteredTodos });
+  };
+
   renderTodoList = () => {
     return this.state.todos.length ? (
       this.state.todos.map((todo) => {
-        return <TodoItem key={todo.id} todo={todo} />;
+        // todo : { id: 27, action: "Mandi", isComplete: false }
+        return (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onDeleteTodo={this.onDeleteTodo}
+          />
+        );
       })
     ) : (
       <h3 className="text-center mt-5">Loading ...</h3>
@@ -36,8 +55,8 @@ class App extends React.Component {
     setTimeout(() => {
       this.setState({
         todos: [
-          { id: 1, action: "Bangun tidur", isComplete: false },
-          { id: 2, action: "Mandi", isComplete: false },
+          { id: 72, action: "Bangun tidur", isComplete: false },
+          { id: 27, action: "Mandi", isComplete: false },
         ],
       });
     }, 3000);

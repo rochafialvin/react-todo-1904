@@ -1,8 +1,10 @@
 import React from "react";
 
+// props : key, todo, onDeleteTodo
+
 class TodoItem extends React.Component {
   state = {
-    isComplete: this.props.todo.isComplete,
+    isComplete: false,
   };
 
   cancelBtnHandler = () => {
@@ -14,9 +16,10 @@ class TodoItem extends React.Component {
   };
 
   render() {
-    // this.props.todo : { action: "Mandi", isComplete: false }
+    // this.props.todo : { id: 27, action: "Mandi", isComplete: false }
+
     return (
-      <div className="d-flex w-50 pt-3 justify-content-between border-bottom mx-auto">
+      <div className="d-flex pt-3 justify-content-between border-bottom mx-auto">
         {this.state.isComplete ? (
           <p className="lead text-decoration-line-through">
             {this.props.todo.action}
@@ -26,16 +29,24 @@ class TodoItem extends React.Component {
         )}
         <div>
           <button
-            onClick={this.cancelBtnHandler}
-            className="btn btn-outline-warning me-2"
-          >
-            Cancel
-          </button>
-          <button
             onClick={this.completeBtnHandler}
             className="btn btn-outline-success"
           >
             Complete
+          </button>
+          <button
+            onClick={this.cancelBtnHandler}
+            className="btn btn-outline-warning ms-2"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => {
+              this.props.onDeleteTodo(this.props.todo.id);
+            }}
+            className="btn btn-outline-danger ms-2"
+          >
+            Delete
           </button>
         </div>
       </div>

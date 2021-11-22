@@ -15,7 +15,7 @@ export class InputBox extends Component {
 
   render() {
     return (
-      <div className="w-50 mx-auto mb-2">
+      <div className="mx-auto mb-2">
         <input
           type="text"
           className="form-control mb-2"
@@ -35,3 +35,5 @@ export class InputBox extends Component {
 }
 
 export default InputBox;
+
+// props (properties) --> data yang data dari luar komponen
