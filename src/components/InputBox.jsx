@@ -1,6 +1,18 @@
 import { Component } from "react";
 
 export class InputBox extends Component {
+  state = {
+    inputValue: "",
+  };
+
+  onBtnAddHandler = () => {
+    this.props.onAddTodo(this.state.inputValue);
+  };
+
+  handleChange = (event) => {
+    this.setState({ inputValue: event.target.value });
+  };
+
   render() {
     return (
       <div className="w-50 mx-auto mb-2">
@@ -8,8 +20,15 @@ export class InputBox extends Component {
           type="text"
           className="form-control mb-2"
           placeholder="What's next ?"
+          onChange={this.handleChange}
+          value={this.state.inputValue}
         />
-        <button className="btn btn-outline-primary w-100">Add</button>
+        <button
+          onClick={this.onBtnAddHandler}
+          className="btn btn-outline-primary w-100"
+        >
+          Add
+        </button>
       </div>
     );
   }

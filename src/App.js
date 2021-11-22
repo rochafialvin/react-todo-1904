@@ -11,11 +11,21 @@ class App extends React.Component {
     todos: [],
   };
 
+  onAddTodo = (todoAction) => {
+    // todoAction : "abc" / yang di ketik
+    const newTodo = {
+      id: new Date().getTime(),
+      action: todoAction,
+      isComplete: false,
+    };
+
+    this.setState({ todos: [...this.state.todos, newTodo] });
+  };
+
   renderTodoList = () => {
     return this.state.todos.length ? (
       this.state.todos.map((todo) => {
-        // todo : { action: "Bangun tidur", isComplete: true }
-        return <TodoItem todo={todo} />;
+        return <TodoItem key={todo.id} todo={todo} />;
       })
     ) : (
       <h3 className="text-center mt-5">Loading ...</h3>
@@ -26,9 +36,8 @@ class App extends React.Component {
     setTimeout(() => {
       this.setState({
         todos: [
-          { action: "Bangun tidur", isComplete: true },
-          { action: "Mandi", isComplete: false },
-          { action: "Gosok gigi", isComplete: false },
+          { id: 1, action: "Bangun tidur", isComplete: false },
+          { id: 2, action: "Mandi", isComplete: false },
         ],
       });
     }, 3000);
@@ -37,7 +46,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="container p-5">
-        <InputBox />
+        <InputBox onAddTodo={this.onAddTodo} />
         {/* Memberikan property ke TodoItem */}
         {this.renderTodoList()}
       </div>
