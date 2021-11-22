@@ -8,19 +8,31 @@ import InputBox from "./components/InputBox";
 
 class App extends React.Component {
   state = {
-    todos: [
-      { action: "Bangun tidur", isComplete: true },
-      { action: "Mandi", isComplete: false },
-      { action: "Gosok gigi", isComplete: false },
-    ],
+    todos: [],
   };
 
   renderTodoList = () => {
-    return this.state.todos.map((todo) => {
-      // todo : { action: "Mandi", isComplete: false }
-      return <TodoItem todo={todo} />;
-    });
+    return this.state.todos.length ? (
+      this.state.todos.map((todo) => {
+        // todo : { action: "Bangun tidur", isComplete: true }
+        return <TodoItem todo={todo} />;
+      })
+    ) : (
+      <h3 className="text-center mt-5">Loading ...</h3>
+    );
   };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        todos: [
+          { action: "Bangun tidur", isComplete: true },
+          { action: "Mandi", isComplete: false },
+          { action: "Gosok gigi", isComplete: false },
+        ],
+      });
+    }, 3000);
+  }
 
   render() {
     return (
@@ -34,3 +46,7 @@ class App extends React.Component {
 }
 
 export default App;
+
+// function yang pertama kali jalan adalah render() untuk pertama kali
+// setelah render yang pertama kali selesai di proses, selanjutnya akan menjalankan componentDidMount()
+// this.setState(..) --> render() --> componentDidMount ? tidak
