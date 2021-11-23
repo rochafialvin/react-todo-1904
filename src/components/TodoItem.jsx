@@ -1,24 +1,21 @@
 import React from "react";
 
-// props : key, todo, onDeleteTodo
+// props : key, todo, onDeleteTodo, onCompleteTodo, onCancelTodo
+// todo : { id: 72, action: "Mandi", isComplete: false },
 
 class TodoItem extends React.Component {
-  state = {
-    isComplete: false,
-  };
-
   cancelBtnHandler = () => {
-    this.setState({ isComplete: false });
+    this.props.onCancelTodo(this.props.todo.id);
   };
 
   completeBtnHandler = () => {
-    this.setState({ isComplete: true });
+    this.props.onCompleteTodo(this.props.todo.id);
   };
 
   render() {
     return (
       <div className="d-flex pt-3 justify-content-between border-bottom mx-auto">
-        {this.state.isComplete ? (
+        {this.props.todo.isComplete ? (
           <p className="lead text-decoration-line-through">
             {this.props.todo.action}
           </p>

@@ -8,19 +8,11 @@ import InputBox from "./components/InputBox";
 
 class App extends React.Component {
   state = {
-    todos: [
-      { id: 72, action: "Bangun tidur", isComplete: false },
-      { id: 27, action: "Mandi", isComplete: false },
-      { id: 231453245, action: "Makan", isComplete: false },
-    ],
+    todos: [],
   };
 
   onAddTodo = (todoAction) => {
-    // todoAction : "BANGUN TIDUR"
-    // found : { id: 72, action: "Bangun tidur", isComplete: false }
     const found = this.state.todos.find((todo) => {
-      // todo : { id: 72, action: "Bangun tidur", isComplete: false }
-      // "bangun tidur" === "bangun tidur"
       return todo.action.toLowerCase() === todoAction.toLowerCase();
     });
 
@@ -45,6 +37,38 @@ class App extends React.Component {
     this.setState({ todos: filteredTodos });
   };
 
+  onCompleteTodo = (selectedId) => {
+    /*
+      [
+        { id: 72, action: "Bangun tidur", isComplete: true },
+        { id: 27, action: "Mandi", isComplete: false }
+      ]
+    
+    */
+    const changedTodos = this.state.todos.map((todo) => {
+      // todo : { id: 27, action: "Mandi", isComplete: false }
+      if (todo.id === selectedId) {
+        return { ...todo, isComplete: true };
+      } else {
+        return todo;
+      }
+    });
+
+    this.setState({ todos: changedTodos });
+  };
+
+  onCancelTodo = (selectedId) => {
+    const changedTodos = this.state.todos.map((todo) => {
+      if (todo.id === selectedId) {
+        return { ...todo, isComplete: false };
+      } else {
+        return todo;
+      }
+    });
+
+    this.setState({ todos: changedTodos });
+  };
+
   renderTodoList = () => {
     return this.state.todos.length ? (
       this.state.todos.map((todo) => {
@@ -53,6 +77,8 @@ class App extends React.Component {
             key={todo.id}
             todo={todo}
             onDeleteTodo={this.onDeleteTodo}
+            onCompleteTodo={this.onCompleteTodo}
+            onCancelTodo={this.onCancelTodo}
           />
         );
       })
@@ -67,7 +93,6 @@ class App extends React.Component {
         todos: [
           { id: 72, action: "Bangun tidur", isComplete: false },
           { id: 27, action: "Mandi", isComplete: false },
-          { id: 231453245, action: "Makan", isComplete: false },
         ],
       });
     }, 3000);
@@ -76,7 +101,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="container p-5">
-        <InputBox onAddTodo={this.onAddTodo} />
+        <InputBox todos={this.state.todos} onAddTodo={this.onAddTodo} />
         {this.renderTodoList()}
       </div>
     );
