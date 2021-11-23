@@ -13,6 +13,11 @@ class App extends React.Component {
     page: 1,
     maxPage: 0,
     itemPerPage: 5,
+    sortBy: "",
+  };
+
+  onSelectSort = (sortValue) => {
+    this.setState({ sortBy: sortValue });
   };
 
   onNextPage = () => {
@@ -87,11 +92,47 @@ class App extends React.Component {
 
   renderTodoList = () => {
     if (this.state.todos.length) {
+      // Mengcopy isi array
+      const rawData = [...this.state.todos];
+
+      // Sorting
+      switch (this.state.sortBy) {
+        case "a-z":
+          // sort ascending
+          rawData.sort((a, b) => {
+            if (a.action > b.action) {
+              return 1;
+            } else if (a.action < b.action) {
+              return -1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+
+        case "z-a":
+          // sort descending
+          rawData.sort((a, b) => {
+            if (a.action > b.action) {
+              return -1;
+            } else if (a.action < b.action) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });
+          break;
+
+        default:
+          break;
+      }
+
+      // Slicing
       const startIndex = (this.state.page - 1) * this.state.itemPerPage;
       const endIndex = startIndex + this.state.itemPerPage;
+      const slicedTodos = rawData.slice(startIndex, endIndex);
 
-      const slicedTodos = this.state.todos.slice(startIndex, endIndex);
-
+      // Maping
       return slicedTodos.map((todo) => {
         return (
           <TodoItem
@@ -104,7 +145,7 @@ class App extends React.Component {
         );
       });
     } else {
-      <h3 className="text-center mt-5">Loading ...</h3>;
+      return <h3 className="text-center mt-5">Loading ...</h3>;
     }
   };
 
@@ -128,13 +169,17 @@ class App extends React.Component {
         todos: init,
         maxPage: Math.ceil(init.length / this.state.itemPerPage),
       });
-    }, 1000);
+    }, 2000);
   }
 
   render() {
     return (
       <div className="container p-5">
-        <InputBox todos={this.state.todos} onAddTodo={this.onAddTodo} />
+        <InputBox
+          todos={this.state.todos}
+          onAddTodo={this.onAddTodo}
+          onSelectSort={this.onSelectSort}
+        />
         <div style={{ height: "320px" }}>{this.renderTodoList()}</div>
         <Pagination
           page={this.state.page}

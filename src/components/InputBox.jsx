@@ -13,15 +13,11 @@ export class InputBox extends Component {
     this.setState({ inputValue: event.target.value });
   };
 
-  countCompleteTodo = () => {
-    /*
-      [
-        { id: 27, action: "Mandi", isComplete: true },
-      ]
-    */
+  selectHandler = (event) => {
+    this.props.onSelectSort(event.target.value);
+  };
 
-    // { id: 72, action: "Bangun tidur", isComplete: false },
-    // { id: 27, action: "Mandi", isComplete: true },
+  countCompleteTodo = () => {
     const filteredTodosCount = this.props.todos.filter(
       (todo) => todo.isComplete
     ).length;
@@ -30,9 +26,20 @@ export class InputBox extends Component {
   };
 
   render() {
+    // event handler
     return (
       <div className="mx-auto mb-2">
-        <p>{this.countCompleteTodo()}</p>
+        <div className="d-flex justify-content-between mb-2">
+          <p className="m-0">{this.countCompleteTodo()}</p>
+          <select
+            onChange={this.selectHandler}
+            className="form-select form-select-sm w-50"
+          >
+            <option defaultValue>Sort</option>
+            <option value="a-z">A - Z</option>
+            <option value="z-a">Z - A</option>
+          </select>
+        </div>
         <input
           type="text"
           className="form-control mb-2"
