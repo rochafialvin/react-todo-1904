@@ -5,10 +5,25 @@ import "./style.css";
 
 import TodoItem from "./components/TodoItem";
 import InputBox from "./components/InputBox";
+import Pagination from "./components/Pagination";
 
 class App extends React.Component {
   state = {
     todos: [],
+    page: 1,
+    maxPage: 5,
+  };
+
+  onNextPage = () => {
+    if (this.state.page < this.state.maxPage) {
+      this.setState({ page: this.state.page + 1 });
+    }
+  };
+
+  onPrevPage = () => {
+    if (this.state.page > 1) {
+      this.setState({ page: this.state.page - 1 });
+    }
   };
 
   onAddTodo = (todoAction) => {
@@ -91,11 +106,14 @@ class App extends React.Component {
     setTimeout(() => {
       this.setState({
         todos: [
-          { id: 72, action: "Bangun tidur", isComplete: false },
-          { id: 27, action: "Mandi", isComplete: false },
+          { id: 1, action: "Bangun tidur", isComplete: false },
+          { id: 2, action: "Mandi", isComplete: false },
+          { id: 3, action: "Sarapan", isComplete: false },
+          { id: 4, action: "Prepare", isComplete: false },
+          { id: 5, action: "Sekolah", isComplete: false },
         ],
       });
-    }, 3000);
+    }, 1000);
   }
 
   render() {
@@ -103,6 +121,12 @@ class App extends React.Component {
       <div className="container p-5">
         <InputBox todos={this.state.todos} onAddTodo={this.onAddTodo} />
         {this.renderTodoList()}
+        <Pagination
+          page={this.state.page}
+          maxPage={this.state.maxPage}
+          onNextPage={this.onNextPage}
+          onPrevPage={this.onPrevPage}
+        />
       </div>
     );
   }
