@@ -8,26 +8,37 @@ import InputBox from "./components/InputBox";
 
 class App extends React.Component {
   state = {
-    todos: [],
+    todos: [
+      { id: 72, action: "Bangun tidur", isComplete: false },
+      { id: 27, action: "Mandi", isComplete: false },
+      { id: 231453245, action: "Makan", isComplete: false },
+    ],
   };
 
   onAddTodo = (todoAction) => {
-    // todoAction : "abc" / yang di ketik
-    const newTodo = {
-      id: new Date().getTime(),
-      action: todoAction,
-      isComplete: false,
-    };
+    // todoAction : "BANGUN TIDUR"
+    // found : { id: 72, action: "Bangun tidur", isComplete: false }
+    const found = this.state.todos.find((todo) => {
+      // todo : { id: 72, action: "Bangun tidur", isComplete: false }
+      // "bangun tidur" === "bangun tidur"
+      return todo.action.toLowerCase() === todoAction.toLowerCase();
+    });
 
-    this.setState({ todos: [...this.state.todos, newTodo] });
+    if (found) {
+      alert("Action ini sudah terdapat pada list");
+    } else {
+      const newTodo = {
+        id: new Date().getTime(),
+        action: todoAction,
+        isComplete: false,
+      };
+
+      this.setState({ todos: [...this.state.todos, newTodo] });
+    }
   };
 
   onDeleteTodo = (selectedId) => {
-    // selectedId : 72
-    // newArray = [ { id: 27, action: "Mandi", isComplete: false } ]
     const filteredTodos = this.state.todos.filter((todo) => {
-      // todo : { id: 27, action: "Mandi", isComplete: false }
-      // return true
       return todo.id !== selectedId;
     });
 
@@ -37,7 +48,6 @@ class App extends React.Component {
   renderTodoList = () => {
     return this.state.todos.length ? (
       this.state.todos.map((todo) => {
-        // todo : { id: 27, action: "Mandi", isComplete: false }
         return (
           <TodoItem
             key={todo.id}
@@ -57,6 +67,7 @@ class App extends React.Component {
         todos: [
           { id: 72, action: "Bangun tidur", isComplete: false },
           { id: 27, action: "Mandi", isComplete: false },
+          { id: 231453245, action: "Makan", isComplete: false },
         ],
       });
     }, 3000);
@@ -66,7 +77,6 @@ class App extends React.Component {
     return (
       <div className="container p-5">
         <InputBox onAddTodo={this.onAddTodo} />
-        {/* Memberikan property ke TodoItem */}
         {this.renderTodoList()}
       </div>
     );

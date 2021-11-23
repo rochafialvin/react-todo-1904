@@ -16,6 +16,7 @@ export class InputBox extends Component {
   render() {
     return (
       <div className="mx-auto mb-2">
+        <p>Done 4 of 5</p>
         <input
           type="text"
           className="form-control mb-2"

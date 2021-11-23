@@ -16,8 +16,6 @@ class TodoItem extends React.Component {
   };
 
   render() {
-    // this.props.todo : { id: 27, action: "Mandi", isComplete: false }
-
     return (
       <div className="d-flex pt-3 justify-content-between border-bottom mx-auto">
         {this.state.isComplete ? (
