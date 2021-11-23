@@ -11,7 +11,8 @@ class App extends React.Component {
   state = {
     todos: [],
     page: 1,
-    maxPage: 5,
+    maxPage: 0,
+    itemPerPage: 5,
   };
 
   onNextPage = () => {
@@ -85,8 +86,13 @@ class App extends React.Component {
   };
 
   renderTodoList = () => {
-    return this.state.todos.length ? (
-      this.state.todos.map((todo) => {
+    if (this.state.todos.length) {
+      const startIndex = (this.state.page - 1) * this.state.itemPerPage;
+      const endIndex = startIndex + this.state.itemPerPage;
+
+      const slicedTodos = this.state.todos.slice(startIndex, endIndex);
+
+      return slicedTodos.map((todo) => {
         return (
           <TodoItem
             key={todo.id}
@@ -96,22 +102,31 @@ class App extends React.Component {
             onCancelTodo={this.onCancelTodo}
           />
         );
-      })
-    ) : (
-      <h3 className="text-center mt-5">Loading ...</h3>
-    );
+      });
+    } else {
+      <h3 className="text-center mt-5">Loading ...</h3>;
+    }
   };
 
   componentDidMount() {
+    // Page 1 : todos.slice(0, 3)
+    // Page 2 : todos.slice(3, 6)
+    // Page 3 : todos.slice(6, 9)
+    // page - 1 * itemPerPage, (page - 1 * itemPerPage) + itemsPerPage
+    const init = [
+      { id: 1, action: "Bangun tidur", isComplete: false },
+      { id: 2, action: "Mandi", isComplete: false },
+      { id: 3, action: "Sarapan", isComplete: false },
+      { id: 4, action: "Prepare", isComplete: false },
+      { id: 5, action: "Sekolah", isComplete: false },
+      { id: 6, action: "Belajar", isComplete: false },
+      { id: 7, action: "Les", isComplete: false },
+    ];
+
     setTimeout(() => {
       this.setState({
-        todos: [
-          { id: 1, action: "Bangun tidur", isComplete: false },
-          { id: 2, action: "Mandi", isComplete: false },
-          { id: 3, action: "Sarapan", isComplete: false },
-          { id: 4, action: "Prepare", isComplete: false },
-          { id: 5, action: "Sekolah", isComplete: false },
-        ],
+        todos: init,
+        maxPage: Math.ceil(init.length / this.state.itemPerPage),
       });
     }, 1000);
   }
@@ -120,7 +135,7 @@ class App extends React.Component {
     return (
       <div className="container p-5">
         <InputBox todos={this.state.todos} onAddTodo={this.onAddTodo} />
-        {this.renderTodoList()}
+        <div style={{ height: "320px" }}>{this.renderTodoList()}</div>
         <Pagination
           page={this.state.page}
           maxPage={this.state.maxPage}
