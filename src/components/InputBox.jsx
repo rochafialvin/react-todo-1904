@@ -13,10 +13,26 @@ export class InputBox extends Component {
     this.setState({ inputValue: event.target.value });
   };
 
+  countCompleteTodo = () => {
+    /*
+      [
+        { id: 27, action: "Mandi", isComplete: true },
+      ]
+    */
+
+    // { id: 72, action: "Bangun tidur", isComplete: false },
+    // { id: 27, action: "Mandi", isComplete: true },
+    const filteredTodosCount = this.props.todos.filter(
+      (todo) => todo.isComplete
+    ).length;
+
+    return `Done ${filteredTodosCount} of ${this.props.todos.length}`;
+  };
+
   render() {
     return (
       <div className="mx-auto mb-2">
-        <p>Done 4 of 5</p>
+        <p>{this.countCompleteTodo()}</p>
         <input
           type="text"
           className="form-control mb-2"
