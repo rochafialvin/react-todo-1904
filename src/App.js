@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "./utils/axios";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
@@ -149,26 +150,21 @@ class App extends React.Component {
     }
   };
 
-  componentDidMount() {
-    // Page 1 : todos.slice(0, 3)
-    // Page 2 : todos.slice(3, 6)
-    // Page 3 : todos.slice(6, 9)
-    // page - 1 * itemPerPage, (page - 1 * itemPerPage) + itemsPerPage
-    const init = [
-      { id: 1, action: "Bangun tidur", isComplete: false },
-      { id: 2, action: "Mandi", isComplete: false },
-      { id: 3, action: "Sarapan", isComplete: false },
-      { id: 4, action: "Prepare", isComplete: false },
-      { id: 5, action: "Sekolah", isComplete: false },
-      { id: 6, action: "Belajar", isComplete: false },
-      { id: 7, action: "Les", isComplete: false },
-    ];
-
-    setTimeout(() => {
+  fetchProduts = async () => {
+    try {
+      const res = await axios.get("/todos");
       this.setState({
-        todos: init,
-        maxPage: Math.ceil(init.length / this.state.itemPerPage),
+        todos: res.data,
+        maxPage: Math.ceil(res.data.length / this.state.itemPerPage),
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.fetchProduts();
     }, 2000);
   }
 

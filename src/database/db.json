@@ -1,0 +1,12 @@
+{
+  "users": [],
+  "todos": [
+    { "id": 1, "action": "Bangun tidur", "isComplete": false },
+    { "id": 2, "action": "Mandi", "isComplete": false },
+    { "id": 3, "action": "Sarapan", "isComplete": false },
+    { "id": 4, "action": "Prepare", "isComplete": false },
+    { "id": 5, "action": "Sekolah", "isComplete": false },
+    { "id": 6, "action": "Belajar", "isComplete": false },
+    { "id": 7, "action": "Les", "isComplete": false }
+  ]
+}
