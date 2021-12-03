@@ -33,22 +33,31 @@ class App extends React.Component {
     }
   };
 
-  onAddTodo = (todoAction) => {
-    const found = this.state.todos.find((todo) => {
-      return todo.action.toLowerCase() === todoAction.toLowerCase();
-    });
+  onAddTodo = async (todoAction) => {
+    try {
+      const res = await axios.get("/todos");
+      const found = res.data.find((todo) => {
+        // todo.action : Bangun tidur
+        const action = todo.action.toLowerCase(); // bangun tidur
+        // todoAtion : BANGUN TIDUR
+        const todoActionLowerCase = todoAction.toLowerCase(); // bangun tidur
+        return action === todoActionLowerCase;
+      });
 
-    if (found) {
-      alert("Action ini sudah terdapat pada list");
-    } else {
-      const newTodo = {
-        id: new Date().getTime(),
-        action: todoAction,
-        isComplete: false,
-      };
+      if (found) {
+        alert("Action ini sudah terdapat pada list");
+      } else {
+        const newTodo = {
+          id: new Date().getTime(),
+          action: todoAction,
+          isComplete: false,
+        };
 
-      this.setState({ todos: [...this.state.todos, newTodo] });
-    }
+        await axios.post("/todos", newTodo);
+        alert(`Action ${todoAction} berhasil di tambahkan`);
+        this.fetchProduts();
+      }
+    } catch (error) {}
   };
 
   onDeleteTodo = (selectedId) => {
