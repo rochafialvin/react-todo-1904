@@ -57,15 +57,23 @@ class App extends React.Component {
         alert(`Action ${todoAction} berhasil di tambahkan`);
         this.fetchProduts();
       }
-    } catch (error) {}
+    } catch (error) {
+      alert("Terjadi kesalahan pada server");
+    }
   };
 
-  onDeleteTodo = (selectedId) => {
-    const filteredTodos = this.state.todos.filter((todo) => {
-      return todo.id !== selectedId;
-    });
-
-    this.setState({ todos: filteredTodos });
+  onDeleteTodo = async (selectedId) => {
+    const isProcessDelete = window.confirm("Bener nih mau dihapus ?");
+    if (isProcessDelete) {
+      try {
+        // /todos/1654786965
+        await axios.delete(`/todos/${selectedId}`);
+        alert(`Todo dengan id ${selectedId} berhasil di hapus`);
+        this.fetchProduts();
+      } catch (error) {
+        alert("Gagal menghapus todo");
+      }
+    }
   };
 
   onCompleteTodo = (selectedId) => {
