@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { loginAction } from "../store/actions";
 import axios from "../utils/axios";
 
 export class Login extends Component {
@@ -22,7 +24,8 @@ export class Login extends Component {
       });
 
       if (res.data.length) {
-        alert("Berhasil login");
+        const { id, username } = res.data[0];
+        this.props.loginDispatch({ id, username });
       } else {
         alert("Username atau password salah");
       }
@@ -88,4 +91,18 @@ export class Login extends Component {
   }
 }
 
-export default Login;
+// const mapStateToProps = () => {};
+const mapDispatchToProps = (dispatch) => {
+  // object yang di return oleh function ini akan menjadi props untuk Login
+  // this.props.loginDispatch
+  return {
+    loginDispatch: (loginData) => {
+      // loginData : { id : 1, username : "rochafi" }
+      const action = loginAction(loginData);
+      dispatch(action);
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);
+// connect digunakan untuk menghubungkan component dengan redux store
