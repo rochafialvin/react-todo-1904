@@ -76,36 +76,22 @@ class App extends React.Component {
     }
   };
 
-  onCompleteTodo = (selectedId) => {
-    /*
-      [
-        { id: 72, action: "Bangun tidur", isComplete: true },
-        { id: 27, action: "Mandi", isComplete: false }
-      ]
-    
-    */
-    const changedTodos = this.state.todos.map((todo) => {
-      // todo : { id: 27, action: "Mandi", isComplete: false }
-      if (todo.id === selectedId) {
-        return { ...todo, isComplete: true };
-      } else {
-        return todo;
-      }
-    });
-
-    this.setState({ todos: changedTodos });
+  onCompleteTodo = async (selectedId) => {
+    try {
+      await axios.patch(`/todos/${selectedId}`, { isComplete: true });
+      this.fetchProduts();
+    } catch (error) {
+      alert("Terjadi kesalahan pada server");
+    }
   };
 
-  onCancelTodo = (selectedId) => {
-    const changedTodos = this.state.todos.map((todo) => {
-      if (todo.id === selectedId) {
-        return { ...todo, isComplete: false };
-      } else {
-        return todo;
-      }
-    });
-
-    this.setState({ todos: changedTodos });
+  onCancelTodo = async (selectedId) => {
+    try {
+      await axios.patch(`/todos/${selectedId}`, { isComplete: false });
+      this.fetchProduts();
+    } catch (error) {
+      alert("Terjadi kesalahan pada server");
+    }
   };
 
   renderTodoList = () => {

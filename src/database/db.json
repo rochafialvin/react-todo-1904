@@ -9,7 +9,7 @@
     {
       "id": 2,
       "action": "Mandi",
-      "isComplete": false
+      "isComplete": true
     },
     {
       "id": 3,
@@ -19,7 +19,7 @@
     {
       "id": 4,
       "action": "Prepare",
-      "isComplete": false
+      "isComplete": true
     },
     {
       "id": 5,
@@ -34,7 +34,7 @@
     {
       "id": 7,
       "action": "Les",
-      "isComplete": false
+      "isComplete": true
     }
   ]
 }
