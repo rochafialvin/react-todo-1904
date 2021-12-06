@@ -1,5 +1,11 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": 1,
+      "username": "rochafi",
+      "password": "password"
+    }
+  ],
   "todos": [
     {
       "id": 1,

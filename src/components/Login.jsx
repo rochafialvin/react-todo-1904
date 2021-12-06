@@ -1,17 +1,40 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "../utils/axios";
 
 export class Login extends Component {
+  state = {
+    username: "",
+    password: "",
+  };
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  loginHandler = async () => {
+    try {
+      const res = await axios.get("/users", {
+        params: {
+          username: this.state.username,
+          password: this.state.password,
+        },
+      });
+
+      if (res.data.length) {
+        alert("Berhasil login");
+      } else {
+        alert("Username atau password salah");
+      }
+    } catch (error) {}
+  };
+
   onLoginClick = () => {
-    alert("Login gan");
+    this.loginHandler();
   };
 
-  handleChange = () => {
-    alert("Handle change");
-  };
-
-  onInputPress = () => {
-    alert("On Input");
+  onInputPress = (e) => {
+    if (e.code === "Enter") this.loginHandler();
   };
 
   render() {
