@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { loginAction } from "../store/actions";
 import axios from "../utils/axios";
 
@@ -41,6 +42,8 @@ export class Login extends Component {
   };
 
   render() {
+    if (this.props.sundaEmpire) return <Navigate to="/" replace />;
+
     return (
       <div className="container">
         <div className="row">
@@ -91,7 +94,11 @@ export class Login extends Component {
   }
 }
 
-// const mapStateToProps = () => {};
+const mapStateToProps = (state) => {
+  return {
+    sundaEmpire: state.auth.username,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   // object yang di return oleh function ini akan menjadi props untuk Login
   // this.props.loginDispatch
@@ -104,5 +111,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 // connect digunakan untuk menghubungkan component dengan redux store

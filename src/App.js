@@ -41,7 +41,9 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, { keepLoginAction })(App);
+const mapDispatchToProps = { keepLoginAction };
+
+export default connect(null, mapDispatchToProps)(App);
 
 // function yang pertama kali jalan adalah render() untuk pertama kali
 // setelah render yang pertama kali selesai di proses, selanjutnya akan menjalankan componentDidMount()
