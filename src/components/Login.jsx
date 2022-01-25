@@ -17,20 +17,25 @@ export class Login extends Component {
 
   loginHandler = async () => {
     try {
-      const res = await axios.get("/users", {
-        params: {
-          username: this.state.username,
-          password: this.state.password,
-        },
+      // status : 2xx --> response dari API akan masuk ke res
+      const res = await axios.post("/users/login", {
+        username: this.state.username,
+        password: this.state.password,
       });
 
-      if (res.data.length) {
-        const { id, username } = res.data[0];
-        this.props.loginDispatch({ id, username });
-      } else {
-        alert("Username atau password salah");
-      }
-    } catch (error) {}
+      console.log({ res });
+      // simpan ke redux = id, username , token
+
+      // if (res.data.length) {
+      //   const { id, username } = res.data[0];
+      //   this.props.loginDispatch({ id, username });
+      // } else {
+      //   alert("Username atau password salah");
+      // }
+    } catch (error) {
+      // 4xx or 5xx --> response dari API akan masuk ke error
+      console.log({ error: error.response.data.message });
+    }
   };
 
   onLoginClick = () => {

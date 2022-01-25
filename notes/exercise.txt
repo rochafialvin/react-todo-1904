@@ -1,0 +1,7 @@
+1. Lanjutkan proses login dengan menyimpan id, username, token
+
+2. Lengkapi semua fitur todo dengan menghubungkan ke API
+  a. Create todo
+  b. Get all todo
+  c. Update todo (is_done)
+  d. Delete todo
