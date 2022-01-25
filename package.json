@@ -19,7 +19,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "nyalain-server": "json-server --watch ./src/database/db.json --port 2021",
+    "server": "json-server --watch ./src/database/db.json --port 2021",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

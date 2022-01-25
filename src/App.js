@@ -9,6 +9,7 @@ import "./style.css";
 
 import Home from "./components/Home";
 import Login from "./components/Login";
+import NotFound from "./components/NotFound";
 
 class App extends React.Component {
   state = {
@@ -32,6 +33,7 @@ class App extends React.Component {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
       );
