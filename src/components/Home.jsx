@@ -33,30 +33,19 @@ class Home extends React.Component {
 
   onAddTodo = async (todoAction) => {
     try {
-      const res = await axios.get("/todos");
-      const found = res.data.find((todo) => {
-        // todo.action : Bangun tidur
-        const action = todo.action.toLowerCase(); // bangun tidur
-        // todoAtion : BANGUN TIDUR
-        const todoActionLowerCase = todoAction.toLowerCase(); // bangun tidur
-        return action === todoActionLowerCase;
-      });
-
-      if (found) {
-        alert("Action ini sudah terdapat pada list");
-      } else {
-        const newTodo = {
-          id: new Date().getTime(),
-          action: todoAction,
-          isComplete: false,
-        };
-
-        await axios.post("/todos", newTodo);
-        alert(`Action ${todoAction} berhasil di tambahkan`);
-        this.fetchProduts();
-      }
+      const res = await axios.post(
+        "/todos",
+        { activity: todoAction },
+        {
+          headers: {
+            authorization: `Bearer ${this.props.token}`,
+          },
+        }
+      );
+      this.fetchProduts();
     } catch (error) {
       alert("Terjadi kesalahan pada server");
+      console.log({ error });
     }
   };
 

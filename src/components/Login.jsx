@@ -27,7 +27,8 @@ export class Login extends Component {
       this.props.loginDispatch(res.data);
     } catch (error) {
       // 4xx or 5xx --> response dari API akan masuk ke error
-      console.log({ error: error });
+      const response = error.response;
+      response ? alert(error.response.data.message) : console.log({ error });
     }
   };
 
