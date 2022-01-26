@@ -11,3 +11,6 @@
 
 - Search keyword pada sebuah file : CTRL + F
 - Search keyword pada sebuah project : CTRL + SHIFT + F
+
+- Untuk mengirim file (photo, document, video) perlu menggunakan form data, tidak bisa dengan json.
+  Contoh ada pada component src/components/EditProfile.jsx.

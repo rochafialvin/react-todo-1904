@@ -8,4 +8,10 @@
 
 
 26/01
-Pada halaman edit profile, tambahkan 3 input-text dan 1 button save yang digunakan untuk mengupdate data profile.
+
+0. review --> paham, belum --> ask
+
+a. Pada halaman edit profile, tambahkan 3 input-text (name, email, password) dan 1 button save yang digunakan untuk mengupdate data profile.
+
+b. Untuk update photo, name, email, password hanya menggunakan satu button save.
+
