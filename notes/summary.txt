@@ -8,4 +8,6 @@
 - this adalah sebuah keyword yang digunakan didalam class, yang nantinya akan berisi sebuah object yang dibuat oleh class itu sendiri.
 - Saat ada data yang ingin dikirim ke parent, maka buatlah function di parent lalu kirimkan ke child, dan dari dalam child itu jalankan functionnya dengan memasukkan data yang ingin dikirim ke dalam function tersebut, karena function tadi dibuat di parent komponen, maka parent akan bisa mengakses data milik child dari dalam functionnya.
 - componentDidMount biasa digunakan untuk mengambil data ke database.
-- tambahkan sendiri ya, aku udah ga kepikiran lagi kwkwkwk ....
+
+- Search keyword pada sebuah file : CTRL + F
+- Search keyword pada sebuah project : CTRL + SHIFT + F
