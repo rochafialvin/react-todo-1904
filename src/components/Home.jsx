@@ -53,9 +53,11 @@ class Home extends React.Component {
     const isProcessDelete = window.confirm("Bener nih mau dihapus ?");
     if (isProcessDelete) {
       try {
-        // /todos/1654786965
-        await axios.delete(`/todos/${selectedId}`);
-        alert(`Todo dengan id ${selectedId} berhasil di hapus`);
+        await axios.delete(`/todos/${selectedId}`, {
+          headers: {
+            authorization: `Bearer ${this.props.token}`,
+          },
+        });
         this.fetchProduts();
       } catch (error) {
         alert("Gagal menghapus todo");
