@@ -17,10 +17,10 @@ class TodoItem extends React.Component {
       <div className="d-flex pt-3 justify-content-between border-bottom mx-auto">
         {this.props.todo.isComplete ? (
           <p className="lead text-decoration-line-through">
-            {this.props.todo.action}
+            {this.props.todo.activity}
           </p>
         ) : (
-          <p className="lead"> {this.props.todo.action}</p>
+          <p className="lead"> {this.props.todo.activity}</p>
         )}
         <div>
           <button

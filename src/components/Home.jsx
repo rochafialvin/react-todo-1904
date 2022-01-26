@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "../utils/axios";
+import { connect } from "react-redux";
 
 import TodoItem from "./TodoItem";
 import InputBox from "./InputBox";
@@ -133,8 +134,9 @@ class Home extends React.Component {
       const endIndex = startIndex + this.state.itemPerPage;
       const slicedTodos = rawData.slice(startIndex, endIndex);
 
-      // Maping
+      // Mapping
       return slicedTodos.map((todo) => {
+        // todo : {id, activity, is_done}
         return (
           <TodoItem
             key={todo.id}
@@ -152,13 +154,19 @@ class Home extends React.Component {
 
   fetchProduts = async () => {
     try {
-      const res = await axios.get("/todos");
+      const res = await axios.get("/todos", {
+        headers: {
+          authorization: `Bearer ${this.props.token}`,
+        },
+      });
+
+      //res.data = {data : []}
       this.setState({
-        todos: res.data,
-        maxPage: Math.ceil(res.data.length / this.state.itemPerPage),
+        todos: res.data.data,
+        maxPage: Math.ceil(res.data.data.length / this.state.itemPerPage),
       });
     } catch (error) {
-      console.log(error);
+      console.log({ error });
     }
   };
 
@@ -188,7 +196,14 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  // object yang di return akan menjadi property
+  return {
+    token: state.auth.token,
+  };
+};
+
+export default connect(mapStateToProps)(Home);
 
 // function yang pertama kali jalan adalah render() untuk pertama kali
 // setelah render yang pertama kali selesai di proses, selanjutnya akan menjalankan componentDidMount()
