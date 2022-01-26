@@ -5,3 +5,7 @@
   b. Get all todo
   c. Update todo (is_done)
   d. Delete todo
+
+
+26/01
+Pada halaman edit profile, tambahkan 3 input-text dan 1 button save yang digunakan untuk mengupdate data profile.
