@@ -15,7 +15,7 @@ class TodoItem extends React.Component {
   render() {
     return (
       <div className="d-flex pt-3 justify-content-between border-bottom mx-auto">
-        {this.props.todo.isComplete ? (
+        {this.props.todo.is_done ? (
           <p className="lead text-decoration-line-through">
             {this.props.todo.activity}
           </p>

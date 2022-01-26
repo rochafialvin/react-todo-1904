@@ -67,7 +67,15 @@ class Home extends React.Component {
 
   onCompleteTodo = async (selectedId) => {
     try {
-      await axios.patch(`/todos/${selectedId}`, { isComplete: true });
+      await axios.put(
+        `/todos/${selectedId}`,
+        { is_done: true },
+        {
+          headers: {
+            authorization: `Bearer ${this.props.token}`,
+          },
+        }
+      );
       this.fetchProduts();
     } catch (error) {
       alert("Terjadi kesalahan pada server");
@@ -76,7 +84,15 @@ class Home extends React.Component {
 
   onCancelTodo = async (selectedId) => {
     try {
-      await axios.patch(`/todos/${selectedId}`, { isComplete: false });
+      await axios.put(
+        `/todos/${selectedId}`,
+        { is_done: false },
+        {
+          headers: {
+            authorization: `Bearer ${this.props.token}`,
+          },
+        }
+      );
       this.fetchProduts();
     } catch (error) {
       alert("Terjadi kesalahan pada server");
