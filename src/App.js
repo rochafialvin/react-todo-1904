@@ -9,7 +9,7 @@ import "./style.css";
 
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Profile from "./components/Profile";
+import EditProfile from "./components/EditProfile";
 import NotFound from "./components/NotFound";
 
 class App extends React.Component {
@@ -34,7 +34,7 @@ class App extends React.Component {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
