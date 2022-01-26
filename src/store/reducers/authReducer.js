@@ -1,7 +1,12 @@
 const init = {
-  id: 0,
-  username: "",
-  berhasil: "Hore",
+  user: {
+    id: 0,
+    username: "",
+    name: "",
+    email: "",
+    is_verified: true,
+  },
+  token: "",
 };
 
 // apa yang di return reducer akan disimpan ke state (replace)
@@ -11,15 +16,15 @@ const authReducer = (state = init, action) => {
   /*
     {
       type: "LOGIN_SUCCESS",
-      payload: {id: 99, username: "rochafi", role: "user"}
+      payload: { user : {id, email, username, name, is_verified} , token : 'eJhcnkl' }
     }
   */
   switch (action.type) {
     case "LOGIN_SUCCESS":
       return {
         ...state,
-        id: action.payload.id,
-        username: action.payload.username,
+        user: action.payload.user,
+        token: action.payload.token,
       };
 
     case "LOGOUT_SUCCESS":

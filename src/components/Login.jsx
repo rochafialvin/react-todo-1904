@@ -23,18 +23,11 @@ export class Login extends Component {
         password: this.state.password,
       });
 
-      console.log({ res });
-      // simpan ke redux = id, username , token
-
-      // if (res.data.length) {
-      //   const { id, username } = res.data[0];
-      //   this.props.loginDispatch({ id, username });
-      // } else {
-      //   alert("Username atau password salah");
-      // }
+      // res.data = {user, token}
+      this.props.loginDispatch(res.data);
     } catch (error) {
       // 4xx or 5xx --> response dari API akan masuk ke error
-      console.log({ error: error.response.data.message });
+      console.log({ error: error });
     }
   };
 
@@ -47,7 +40,7 @@ export class Login extends Component {
   };
 
   render() {
-    if (this.props.sundaEmpire) return <Navigate to="/" replace />;
+    if (this.props.username) return <Navigate to="/" replace />;
 
     return (
       <div className="container">
@@ -101,7 +94,7 @@ export class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    sundaEmpire: state.auth.username,
+    username: state.auth.user.username,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -109,9 +102,10 @@ const mapDispatchToProps = (dispatch) => {
   // this.props.loginDispatch
   return {
     loginDispatch: (loginData) => {
-      // loginData : { id : 1, username : "rochafi" }
+      // loginData : { user, token }
+      // action : { type: 'LOGIN_SUCCESS, payload: {user, token}  }
       const action = loginAction(loginData);
-      dispatch(action);
+      dispatch(action); // kirim action ke reducer
     },
   };
 };
