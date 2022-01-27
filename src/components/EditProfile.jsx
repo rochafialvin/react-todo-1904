@@ -17,26 +17,17 @@ export default function EditProfile() {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
-  const onSaveImage = async () => {
-    try {
-      const data = new FormData();
-      data.append("photo", image);
-
-      const res = await axios.post("/users/upload", data, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-
-      alert(res.data.message);
-    } catch (error) {
-      console.log({ gagal: error });
-    }
-  };
-
   const onSaveData = async () => {
     try {
-      const res = await axios.put(`/users/${id}`, formState, {
+      if (!formState.name || !formState.email)
+        return alert("Name or Email can not be empty");
+      const formData = new FormData();
+      formData.append("photo", image);
+      formData.append("name", formState.name);
+      formData.append("email", formState.email);
+      formData.append("password", formState.password);
+
+      const res = await axios.put(`/users/${id}`, formData, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -72,7 +63,6 @@ export default function EditProfile() {
           style={{ width: 500, marginBottom: 5 }}
         />
         <input type="file" onChange={onImageChange} />
-        <button onClick={onSaveImage}>Save Image</button>
       </div>
 
       <div
